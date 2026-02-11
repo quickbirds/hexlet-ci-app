@@ -6,12 +6,21 @@ on:
   pull_request:
     branches: [ main ]
 
+env:
+  CI: true
+
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18.x
+          cache: 'npm'
 
       - name: Setup
         run: make setup
@@ -21,3 +30,6 @@ jobs:
 
       - name: Run linter
         run: make lint
+
+      - name: Hello from Hexlet
+        uses: hexlet-components/hello-from-hexlet-action@release
